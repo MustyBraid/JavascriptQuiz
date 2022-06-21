@@ -1,7 +1,44 @@
+
+
 .correct{
     display: none;
 }
 
 .wrong{
     display: none;
+}
+
+.buttonsList {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+}
+
+.answerButton {
+    color: white;
+    background-color: blue;
+    font-size: 24px;
+    padding: 32px 300px;
+    margin: 20px;
+}
+
+.answerButton:hover {
+    color: white;
+    background-color: blueviolet;
+}
+
+#A {
+    order: 0;
+}
+
+#B {
+    order: 0;
+}
+
+#C {
+    order: 0;
+}
+
+#D {
+    order: 0;
 }

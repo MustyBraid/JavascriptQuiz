@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JS quiz</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <header>
     <h1>This is the title for starters</h1>
-    <div id="timer">120</div>
+    <button id="highScores">view high scores</button>
+    <div id="timer"></div>
 </header>
 
 <body>
     <h2></h2>
     <button id="startButton">Start quiz!</button>
-    <ol>
-        <li><button class="correct">A</button>
-        </li>
-        <li><button class="wrong">B</button>
-        </li>
-        <li><button class="wrong">C</button>
-        </li>
-        <li><button class="wrong">D</button>
-        </li>
-    </ol>
+    <ul class="buttonsList">
+        <button class="correct answerButton" id="A">A</button>
+        
+        <button class="wrong answerButton" id="B">B</button>
+        
+        <button class="wrong answerButton" id="C">C</button>
+        
+        <button class="wrong answerButton" id="D">D</button>
+        
+    </ul>
     <hr>
     <p id="winLose">Right or wrong! Or you win or lose!</p>
     <script src="./assets/js/script.js"></script>

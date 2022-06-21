@@ -5,12 +5,19 @@
 // A clock! that updates both as time passes and as questions are answered incorrectly
 // take the initials of the user and use them to store highscores
 
+//I know I could just store an array of correct answers, then compare correctAnswer[i] to userAnswer[i] but I worry
+//that that would trivialize the journey to get a high score, so I'm randomizing the placement of the answer options and making a headache for myself
+
 //Not sure if it's best practice to write these in one line or many lines. I'm going with one line to prefer code legibility over question legibility
 let question = ['Javascript is a ________ language','How can a variable be declared as a constant?','']
 let rightA = ['Object-Oriented','const',]
 let wrongB = ['Object-Based','let',]
 let wrongC = ['Procedural','var',]
 let wrongD = ['Machine','constant',]
+let userScore = ''
+let buttonOrder = [0,1,2,3]
+var timeLeft = 120
+var JQueryButtons = $('#buttonsList li');
 
 
 function wrongAnswer() {
@@ -18,8 +25,37 @@ function wrongAnswer() {
     timeLeft -= 5;
 }
 
+ function randomizeAnswerPlacement(array) {
+    $("#A").css('order', String(array[0]));
+    $("#B").css('order', String(array[1]));
+    $("#C").css('order', String(array[2]));
+    $("#D").css('order', String(array[3]));
+ }
+
+//This is a lovely function that randomizes the order of the elements of any array we give it
+function shuffle(inputArray) {
+    let currentIndex = inputArray.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [inputArray[currentIndex], inputArray[randomIndex]] = [
+        inputArray[randomIndex], inputArray[currentIndex]];
+    }
+  
+    return inputArray;
+  }
+
+
 function correctAnswer() {
-    //randomize button placements
+    //randomize button placements using shuffle
+    shuffle(buttonOrder);
+    randomizeAnswerPlacement(buttonOrder);
     //advance to next step in central array of questions/answers
     alert('You got it right! Good job');
 }
@@ -35,40 +71,37 @@ document.getElementsByClassName('correct')[0].addEventListener('click', correctA
 
 function endGame() {
     //Save timeLeft to some variable
+    //if timeLeft == 0 then save 'DNF' instead
     //combine timeLeft to a user submitted variable of their initials
     //save the result to local storage
     //display all high scores in local storage
 }
 
-function answerListener() {
-    //This is really quite difficult
-    //Highlight users choice, then call correctAnswer/wrongAnswer when a 'submit' button is pressed
-    //I don't really know how to do that
-}
-
-
-var timeLeft = 120
-$("#startButton").click(function (event){
-    $("#startButton").hide();
-    $(".correct").css('display','grid');
-    $(".wrong").css('display','grid');
-
-    setInterval(function () {
+function stepTimer() {
     $("#timer").html(timeLeft);
-    timeLeft--;
-    }, 1000);
+    timeLeft --;
+    if (timeLeft < 0) {
+        clearInterval(intervalID);
+        $("#timer").hide();
+        userScore = 'DNF';
+        console.log(userScore);
+        alert('Wrong! You get nothing! You lose!')
+        endGame();
+    }
+}
+//jsquery event for whenever the start button is pressed
+$("#startButton").click(function clickStart(event) {
+    shuffle(buttonOrder);
+    randomizeAnswerPlacement(buttonOrder);
+    intervalID = setInterval(stepTimer, 1000);
+    //my friends and I don't understand exactly why this works. We're not calling setInterval, and we're not using let, const, var, etc. with interval ID.
+    //Just making a note so I can ask a tutor later!
+    $("#startButton").hide();
+    $(".correct").css('display','flex');
+    $(".wrong").css('display','flex');
 });
-
-//REALLY not sure if I want to do this with a for loop or this strange set interval callback thing
-
-
-// for (;timeLeft > 0; timeLeft --) {
-//     console.log('test');
-// }
 
 
 
 //I can randomize the buttons by making 4 pre-determined buttons with hardcoded values
 //then randomizing their order in a list or something. That'll be very quick
-
-//break is the key. Calling break will exit the code block it's currently in
