@@ -18,6 +18,7 @@ let userScore = ''
 let buttonOrder = [0,1,2,3]
 var timeLeft = 120
 var questionNumber = 0
+$('#highScoresList').hide();
 
 
 function wrongAnswer() {
@@ -116,7 +117,9 @@ $("#startButton").click(function clickStart(event) {
     $(".wrong").css('display','flex');
 });
 
-
+$("#highScores").click(function clickStart(event) {
+    //placeholder
+})
 
 //I can randomize the buttons by making 4 pre-determined buttons with hardcoded values
 //then randomizing their order in a list or something. That'll be very quick
